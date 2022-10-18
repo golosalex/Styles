@@ -1,0 +1,152 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:fa="http://schemas.fontawesome.io/icons/">
+    <SolidColorBrush x:Key="BackgroundDark" Color="#273039"></SolidColorBrush>
+    <SolidColorBrush x:Key="GreenNeonLight" Color="#1D685C"></SolidColorBrush>
+    <!--<SolidColorBrush x:Key="Black" Color="#181C1B"></SolidColorBrush>-->
+    <LinearGradientBrush StartPoint="0,0"
+                         EndPoint="0,1"
+                         x:Key="Black">
+        <GradientStop Offset="0" Color="#283C2B"/>
+        <GradientStop Offset="1" Color="#181C1B"/>
+
+    </LinearGradientBrush>
+
+    <Style x:Key="ToggleButtonComboBox" TargetType="ToggleButton">
+        <Setter Property="OverridesDefaultStyle" Value="true"/>
+        <Setter Property="IsTabStop" Value="false"/>
+        <Setter Property="Focusable" Value="false"/>
+        <Setter Property="ClickMode" Value="Press"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Border BorderThickness="2" 
+                                BorderBrush="{StaticResource GreenNeonLight}"
+                                CornerRadius="6,6,0,0"
+                                Background="{StaticResource Black}"
+                            x:Name="MainBorder"
+                            SnapsToDevicePixels="True">
+                        <Border HorizontalAlignment="Left"  BorderThickness="1" BorderBrush="Transparent" Width="30">
+                            <fa:ImageAwesome Icon="Gear" Width="20" RenderTransformOrigin="0.5,0.5" Name="Gear" Foreground="#bbbbbb">
+                                <fa:ImageAwesome.RenderTransform>
+                                    <TransformGroup>
+                                        <TransformGroup.Children>
+                                            <RotateTransform Angle="0" />
+                                            <ScaleTransform ScaleX="1" ScaleY="1" />
+                                        </TransformGroup.Children>
+                                    </TransformGroup>
+                                </fa:ImageAwesome.RenderTransform>
+                            </fa:ImageAwesome>
+                        </Border>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation  Storyboard.TargetName="Gear"  
+                                                Storyboard.TargetProperty="(Path.RenderTransform).(TransformGroup.Children)[0].(RotateTransform.Angle)"
+                                                To="80"
+                                                Duration="0:0:0.25"/>
+
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation  Storyboard.TargetName="Gear"  
+                                                Storyboard.TargetProperty="(Path.RenderTransform).(TransformGroup.Children)[0].(RotateTransform.Angle)"
+                                                To="0"
+                                                Duration="0:0:0.25"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="MainBorder" Property="CornerRadius" Value="6,6,0,0"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="Gear"
+                                                         Storyboard.TargetProperty="(Path.RenderTransform).(TransformGroup.Children)[1].(ScaleTransform.ScaleX)"
+                                                         To="1.1"
+                                                         Duration="0:0:0.2">
+
+                                        </DoubleAnimation>
+                                        <DoubleAnimation Storyboard.TargetName="Gear"
+                                                         Storyboard.TargetProperty="(Path.RenderTransform).(TransformGroup.Children)[1].(ScaleTransform.ScaleY)"
+                                                         To="1.1"
+                                                         Duration="0:0:0.2">
+
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="Gear"
+                                                         Storyboard.TargetProperty="(Path.RenderTransform).(TransformGroup.Children)[1].(ScaleTransform.ScaleX)"
+                                                         To="1"
+                                                         Duration="0:0:0.2">
+
+                                        </DoubleAnimation>
+                                        <DoubleAnimation Storyboard.TargetName="Gear"
+                                                         Storyboard.TargetProperty="(Path.RenderTransform).(TransformGroup.Children)[1].(ScaleTransform.ScaleY)"
+                                                         To="1"
+                                                         Duration="0:0:0.2">
+
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+    </Style>
+    <ControlTemplate x:Key="ComboBoxCustom" TargetType="ComboBox">
+        <Grid x:Name="TemplateRoot">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <!--diagnostic-->
+            <Popup Grid.ColumnSpan="2"
+                   x:Name="PART_Popap"
+                   Placement="Bottom"
+                   IsOpen="True"
+                   SnapsToDevicePixels="True"
+                   AllowsTransparency="True">
+                <Grid SnapsToDevicePixels="True">
+                    <Border Height="200" 
+                        MinWidth="{Binding ActualWidth, ElementName=TemplateRoot}" 
+                        Margin="0,0,0,0" 
+                        BorderThickness="2,0,2,2" 
+                                BorderBrush="{StaticResource GreenNeonLight}"
+                                CornerRadius="0,0,6,6"
+                                Background="{StaticResource Black}">
+
+                </Border>
+                </Grid>
+                
+
+
+            </Popup>
+            <ToggleButton Style="{StaticResource ToggleButtonComboBox}" 
+                          Grid.ColumnSpan="2"
+                          IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}">
+            </ToggleButton>
+        </Grid>
+    </ControlTemplate>
+
+    <Style x:Key="ComboBoxStyle" TargetType="ComboBox">
+
+        <Setter Property="Template" Value="{StaticResource ComboBoxCustom}"/>
+    </Style>
+</ResourceDictionary>
