@@ -272,7 +272,7 @@
                               Grid.ColumnSpan="2" 
                               IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" 
                               Style="{StaticResource ComboBoxToggleButton}"/>
-                <!--<ContentPresenter x:Name="contentPresenter" 
+                <ContentPresenter x:Name="contentPresenter" 
                                   ContentStringFormat="{TemplateBinding SelectionBoxItemStringFormat}" 
                                   ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" 
                                   Content="{TemplateBinding SelectionBoxItem}" 
@@ -281,7 +281,7 @@
                                   IsHitTestVisible="false" 
                                   Margin="{TemplateBinding Padding}" 
                                   SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
-                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>-->
+                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                 <Border BorderThickness="2" BorderBrush="red">
                     
                 </Border>

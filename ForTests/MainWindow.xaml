@@ -6,23 +6,34 @@
         xmlns:local="clr-namespace:ForTests"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <Grid Height="200" Width="200">
-            <Border x:Name="templateRoot" 
-                                 
-                                BorderThickness="1" 
-                                SnapsToDevicePixels="true">
-                <Border x:Name="splitBorder" 
-                                    BorderBrush="Transparent" 
-                                    BorderThickness="1" 
-                                    HorizontalAlignment="Right" 
-                                    Margin="0" 
-                                    SnapsToDevicePixels="true" 
-                                    Width="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}">
-                    <Path x:Name="arrow" Data="F1 M 0,0 L 2.667,2.66665 L 5.3334,0 L 5.3334,-1.78168 L 2.6667,0.88501 L0,-1.78168 L0,0 Z" Fill="Red" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center"/>
-                </Border>
-            </Border>
-        </Grid>
-        
-    </Grid>
+    <UniformGrid Rows="2" Columns="2">
+        <ToggleButton x:Name="toggleButton" Content="Some Element.&#xd;&#xa;Click for Popup"
+                      IsChecked="True"/>
+        <Popup IsOpen="{Binding IsChecked, ElementName=toggleButton}"
+               PlacementTarget="{Binding ElementName=toggleButton, Mode=OneWay}"
+               AllowsTransparency="True">
+            <Grid>
+                <Path Fill="LightYellow" Stroke="LightGray">
+                    <Path.Data>
+                        <CombinedGeometry GeometryCombineMode="Union">
+                            <CombinedGeometry.Geometry1>
+                                <!--Vertical offset by the height of the arrow-->
+                                <RectangleGeometry Rect="0,30 100,200"/>
+                            </CombinedGeometry.Geometry1>
+                            <CombinedGeometry.Geometry2>
+                                <!--Arrow shape-->
+                                <PathGeometry Figures="M0,30 L10,0 L20,30 Z">
+                                    <PathGeometry.Transform>
+                                        <!--Arrow position-->
+                                        <TranslateTransform X="30"/>
+                                    </PathGeometry.Transform>
+                                </PathGeometry>
+                            </CombinedGeometry.Geometry2>
+                        </CombinedGeometry>
+                    </Path.Data>
+                </Path>
+                <TextBlock Text="Popup text" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </Grid>
+        </Popup>
+    </UniformGrid>
 </Window>

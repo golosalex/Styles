@@ -8,7 +8,7 @@
                          EndPoint="0,1"
                          x:Key="Black">
         <GradientStop Offset="0" Color="#181C1B"/>
-        <GradientStop Offset="0.6" Color="#283C2B"/>
+        <GradientStop Offset="0.6" Color="#1f1f1f"/>
 
         <GradientStop Offset="1" Color="#181C1B"/>
     </LinearGradientBrush>
@@ -127,14 +127,15 @@
                    Margin="0,2,0,0"
                    PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}">
                 <Grid>
-                    <Border Height="200" 
+                    <Border 
+                        MaxHeight="{TemplateBinding MaxDropDownHeight}" 
                         MinWidth="{Binding ActualWidth, ElementName=TemplateRoot}" 
                         Margin="0,0,0,0" 
                         BorderThickness="2,0,2,2" 
                                 BorderBrush="{StaticResource GreenNeonLight}"
                                 CornerRadius="0,0,6,6"
                                 Background="{StaticResource Black}">
-
+                        <ItemsPresenter></ItemsPresenter>
                 </Border>
                 </Grid>
                 
@@ -145,11 +146,31 @@
                           Grid.ColumnSpan="2"
                           IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}">
             </ToggleButton>
+            <ContentPresenter Grid.Column="1"
+                              Content="{TemplateBinding SelectionBoxItem}"
+                              IsHitTestVisible="False"
+                              ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                              ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}">
+                
+            </ContentPresenter>
         </Grid>
     </ControlTemplate>
 
+    <Style x:Key="ComboBoxItemCustomStyle" TargetType="ComboBoxItem">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ComboBoxItem">
+                    <Border BorderBrush="Red" BorderThickness="2">
+                        <ContentPresenter></ContentPresenter>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
     <Style x:Key="ComboBoxStyle" TargetType="ComboBox">
 
         <Setter Property="Template" Value="{StaticResource ComboBoxCustom}"/>
+        <Setter Property="ItemContainerStyle" Value="{StaticResource ComboBoxItemCustomStyle}"></Setter>
     </Style>
 </ResourceDictionary>
